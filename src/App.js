@@ -5,16 +5,16 @@ import { useAuth } from './Context/AuthContext';
 
 function App() {
 
-  const {login} = useAuth()
+  const {isLoggedIn} = useAuth()
 
-  function PrivateRoute({path,login,props}){
-    return login?<Route path={path} {...props}/>:<Navigate state={{from:path}} replace to="/login"/>
+  function PrivateRoute({path,login,element}){
+    return login?<Route path={path} element={element}/>:<Navigate state={{from:path}} replace to="/login"/>
   }
 
   return (
     <div className="App">
       <Routes>
-        <PrivateRoute login={login} path="/" element={<Home/>}/>
+        <PrivateRoute login={isLoggedIn} path="/" element={<Home/>}/>
         <Route path="/login" element={<Login/>}/>
       </Routes>
     </div>
